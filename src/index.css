@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Ethereal Luxury Theme - Dusty Pink & Rose Gold */
+    --background: 20 30% 98%;
+    --foreground: 350 40% 20%;
+
+    --card: 20 40% 97%;
+    --card-foreground: 350 40% 20%;
+
+    --popover: 20 40% 97%;
+    --popover-foreground: 350 40% 20%;
+
+    /* Dusty Pink Primary */
+    --primary: 15 45% 75%;
+    --primary-foreground: 350 40% 15%;
+
+    /* Rose Gold Secondary */
+    --secondary: 20 35% 85%;
+    --secondary-foreground: 350 40% 20%;
+
+    /* Soft Muted Tones */
+    --muted: 20 25% 92%;
+    --muted-foreground: 350 20% 45%;
+
+    /* Rose Gold Accent */
+    --accent: 15 50% 70%;
+    --accent-foreground: 350 40% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 20 30% 88%;
+    --input: 20 30% 88%;
+    --ring: 15 45% 75%;
+
+    --radius: 0.75rem;
+
+    /* Custom Birthday Theme Colors */
+    --dusty-pink: 15 45% 75%;
+    --dusty-pink-light: 15 50% 88%;
+    --dusty-pink-dark: 15 40% 65%;
+    --rose-gold: 20 40% 70%;
+    --rose-gold-light: 20 45% 85%;
+    --soft-white: 20 30% 98%;
+    --deep-maroon: 350 40% 20%;
+    --cream: 35 40% 95%;
+    
+    /* Gradients */
+    --gradient-ethereal: linear-gradient(135deg, hsl(20 30% 98%) 0%, hsl(15 50% 92%) 50%, hsl(15 45% 85%) 100%);
+    --gradient-rose: linear-gradient(180deg, hsl(20 35% 85%) 0%, hsl(15 45% 75%) 100%);
+    --gradient-shimmer: linear-gradient(90deg, transparent 0%, hsl(20 50% 90% / 0.5) 50%, transparent 100%);
+    
+    /* Shadows */
+    --shadow-soft: 0 4px 30px hsl(15 45% 75% / 0.15);
+    --shadow-glow: 0 0 40px hsl(15 50% 80% / 0.3);
+    --shadow-card: 0 10px 40px hsl(350 40% 20% / 0.08);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 350 30% 8%;
+    --foreground: 20 30% 95%;
+
+    --card: 350 25% 12%;
+    --card-foreground: 20 30% 95%;
+
+    --popover: 350 25% 12%;
+    --popover-foreground: 20 30% 95%;
+
+    --primary: 15 45% 65%;
+    --primary-foreground: 350 40% 10%;
+
+    --secondary: 350 20% 18%;
+    --secondary-foreground: 20 30% 95%;
+
+    --muted: 350 20% 18%;
+    --muted-foreground: 20 20% 65%;
+
+    --accent: 15 50% 60%;
+    --accent-foreground: 350 40% 10%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 350 20% 20%;
+    --input: 350 20% 20%;
+    --ring: 15 45% 65%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  .gradient-ethereal {
+    background: var(--gradient-ethereal);
+  }
+  
+  .gradient-rose {
+    background: var(--gradient-rose);
+  }
+  
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--deep-maroon)) 0%, hsl(var(--dusty-pink-dark)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-shimmer);
+    animation: shimmer 2s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+  
+  .glass {
+    background: hsl(var(--soft-white) / 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--dusty-pink-light) / 0.5);
+  }
+  
+  .floating {
+    animation: floating 3s ease-in-out infinite;
+  }
+  
+  @keyframes floating {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+}
