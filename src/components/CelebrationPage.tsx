@@ -8,14 +8,33 @@ import {
   Cake,
   Star,
   PartyPopper,
+  BookOpen,
+  Download,
+  ArrowLeft,
 } from 'lucide-react';
+import pdfSrc from '../document/Lvl.22_Lisa-Arde_Project.pdf';
 
-type CelebrationStage = 'confetti' | 'cake' | 'card';
+type CelebrationStage = 'confetti' | 'cake' | 'card' | 'pdf-viewer';
 
 const CelebrationPage = () => {
   const [stage, setStage] = useState<CelebrationStage>('confetti');
   const [isFlipped, setIsFlipped] = useState(false);
   const [candlesBlown, setCandlesBlown] = useState(false);
+  const [pdfError, setPdfError] = useState(false);
+
+  // Navigation handlers
+  const handleOpenJournal = () => setStage('pdf-viewer');
+  const handleBackToCard = () => setStage('card');
+
+  // Download handler
+  const handleDownload = () => {
+    const link = document.createElement('a');
+    link.href = pdfSrc;
+    link.download = 'Lvl.22_Lisa-Arde_Project.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   // Continuous confetti effect
   useEffect(() => {
@@ -703,6 +722,151 @@ const CelebrationPage = () => {
                 </div>
               </motion.div>
 
+              {/* Baca Jurnal Button */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2, duration: 0.6 }}
+                className='flex justify-center mt-6'
+              >
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleOpenJournal}
+                  className='px-8 py-4 rounded-full font-semibold shadow-lg bg-gradient-to-r from-dusty-pink via-rose-gold to-dusty-pink text-deep-maroon hover:shadow-glow transition-all duration-300 flex items-center gap-3'
+                >
+                  <BookOpen className='w-5 h-5' />
+                  <span>Baca Jurnal 📖</span>
+                </motion.button>
+              </motion.div>
+            </motion.div>
+          )}
+
+          {/* Stage 4: PDF Viewer */}
+          {stage === 'pdf-viewer' && (
+            <motion.div
+              key='pdf-viewer-stage'
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              transition={{ duration: 0.8 }}
+              className='flex-1 flex flex-col items-center px-4 py-4'
+            >
+              {/* Header */}
+              <motion.div
+                initial={{ y: -30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3 }}
+                className='text-center mb-4'
+              >
+                <div className='flex items-center justify-center gap-3 mb-2'>
+                  <motion.div
+                    animate={{ rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    <BookOpen className='w-8 h-8 md:w-10 md:h-10 text-dusty-dark' />
+                  </motion.div>
+                  <h2 className='font-display text-2xl md:text-4xl text-deep-maroon drop-shadow-lg'>
+                    Jurnal Spesial ✨
+                  </h2>
+                  <motion.div
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    <Heart className='w-6 h-6 text-dusty-pink' fill='currentColor' />
+                  </motion.div>
+                </div>
+                <p className='text-muted-foreground text-sm md:text-base'>
+                  Ini jurnal yang Ejaa tulis khusus buat kamu 💕
+                </p>
+              </motion.div>
+
+              {/* PDF Container */}
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.6 }}
+                className='w-full max-w-4xl flex-1 bg-gradient-to-br from-soft-white via-rose-light to-dusty-light rounded-2xl shadow-card border-4 border-dusty-pink/30 overflow-hidden'
+              >
+                {pdfError ? (
+                  <div className='h-full flex flex-col items-center justify-center p-8 text-center'>
+                    <motion.div
+                      animate={{ scale: [1, 1.1, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      <BookOpen className='w-16 h-16 text-dusty-dark/50 mb-4' />
+                    </motion.div>
+                    <p className='text-deep-maroon font-medium mb-4'>
+                      PDF gagal dimuat 😢
+                    </p>
+                    <button
+                      onClick={() => setPdfError(false)}
+                      className='px-6 py-2 rounded-full bg-gradient-to-r from-dusty-pink to-rose-gold text-deep-maroon font-medium hover:shadow-lg transition-all'
+                    >
+                      Coba Lagi
+                    </button>
+                  </div>
+                ) : (
+                  <iframe
+                    src={pdfSrc}
+                    className='w-full h-[60vh] md:h-[70vh]'
+                    title='Jurnal Lisa'
+                    onError={() => setPdfError(true)}
+                  />
+                )}
+              </motion.div>
+
+              {/* Action Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                className='flex flex-col sm:flex-row gap-4 mt-6'
+              >
+                {/* Back Button */}
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleBackToCard}
+                  className='px-6 py-3 rounded-full font-semibold shadow-lg bg-white/80 text-deep-maroon border-2 border-dusty-pink/50 hover:bg-dusty-light transition-all duration-300 flex items-center justify-center gap-2'
+                >
+                  <ArrowLeft className='w-5 h-5' />
+                  <span>Kembali</span>
+                </motion.button>
+
+                {/* Download Button */}
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleDownload}
+                  className='px-6 py-3 rounded-full font-semibold shadow-lg bg-gradient-to-r from-dusty-pink via-rose-gold to-dusty-pink text-deep-maroon hover:shadow-glow transition-all duration-300 flex items-center justify-center gap-2'
+                >
+                  <Download className='w-5 h-5' />
+                  <span>Download PDF 📥</span>
+                </motion.button>
+              </motion.div>
+
+              {/* Decorative footer */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1 }}
+                className='flex justify-center gap-2 mt-4'
+              >
+                {['🌸', '💖', '✨', '💖', '🌸'].map((emoji, i) => (
+                  <motion.span
+                    key={i}
+                    animate={{ y: [0, -5, 0] }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      delay: i * 0.1,
+                    }}
+                  >
+                    {emoji}
+                  </motion.span>
+                ))}
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>

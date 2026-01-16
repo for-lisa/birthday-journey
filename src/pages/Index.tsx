@@ -4,6 +4,7 @@ import CountdownPage from "../components/CountdownPage";
 import QRScannerPage from "../components/QRScannerPage";
 import CelebrationPage from "../components/CelebrationPage";
 import GlobalAudioPlayer from "../components/GlobalAudioPlayer";
+import audioSrc from "../audio/NA-SAD.mp3";
 
 type Stage = "countdown" | "scan" | "celebration";
 
@@ -98,12 +99,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       {/* Global Audio Element */}
-      <audio ref={audioRef} loop preload="auto">
-        <source
-          src='http://lisa.maseja.my.id/NA-SAD.mp3'
-          type='audio/mpeg'
-        />
-      </audio>
+      <audio ref={audioRef} loop preload="auto" src={audioSrc} />
 
       {/* Global Audio Player - visible on all pages */}
       <GlobalAudioPlayer
