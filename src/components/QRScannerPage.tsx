@@ -225,7 +225,7 @@ const QRScannerPage = ({ onSuccess }: QRScannerPageProps) => {
               transition={{ delay: 0.8 }}
               className='mt-6 text-xs text-muted-foreground'
             >
-              Kamu Bakal liat website ini ketika membuka buku di halaman pertama, Yuks Scan Kodenya diatas. <strong>Tapiiii Kamu boleh baca bukunya dulu sampai habis baru akses website ini yaaaw</strong>^^
+              Kamu Bakal liat website ini ketika sudah membaca buku, Yuks Scan Kodenya diatas. <strong>Tapiiii Kamu boleh baca bukunya dulu sampai habis baru akses website ini yaaaw</strong>^^
             </motion.p>
           </motion.div>
         )}
